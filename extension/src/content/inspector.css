@@ -1,0 +1,40 @@
+/*
+ * Injected into the inspected page, so every rule has to survive whatever the
+ * page's own CSS does: `all: initial` resets inherited styles, and the ids keep
+ * specificity above typical page selectors.
+ */
+
+html.pantheon-copilot-picking,
+html.pantheon-copilot-picking * {
+  cursor: crosshair !important;
+}
+
+#pantheon-copilot-overlay,
+#pantheon-copilot-label {
+  all: initial;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2147483647;
+  pointer-events: none;
+  display: none;
+  box-sizing: border-box;
+}
+
+#pantheon-copilot-overlay {
+  border: 2px solid #0066ff;
+  background: rgba(0, 102, 255, 0.12);
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.6);
+  transition: transform 60ms linear, width 60ms linear, height 60ms linear;
+}
+
+#pantheon-copilot-label {
+  font: 600 11px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: #ffffff;
+  background: #0066ff;
+  padding: 2px 6px;
+  border-radius: 3px;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}

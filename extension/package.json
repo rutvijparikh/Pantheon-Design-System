@@ -1,0 +1,21 @@
+{
+  "name": "pantheon-claude-extension",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Chrome extension that audits any page against the Pantheon Design System and explains the gaps with Claude.",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "watch": "node build.mjs --watch",
+    "test": "npm run build && node --test --test-concurrency=1 test/*.test.mjs",
+    "test:logic": "node --test test/logic.test.mjs",
+    "package": "node build.mjs && cd dist && zip -qr ../pantheon-claude-extension.zip . && echo \"Wrote extension/pantheon-claude-extension.zip\""
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.125.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2",
+    "playwright": "^1.63.0"
+  }
+}

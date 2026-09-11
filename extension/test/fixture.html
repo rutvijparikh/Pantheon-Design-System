@@ -1,0 +1,66 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>Drift fixture</title>
+<!--
+  A page with deliberately planted design-system drift, so the collector and the
+  audit can be asserted against known answers. Every value below is annotated
+  with what the audit is expected to say about it.
+-->
+<style>
+  body {
+    margin: 0;
+    padding: 32px; /* spacing.xl — on token */
+    background: #ffffff; /* colors.background.default — on token */
+    font-family: Inter, sans-serif;
+    color: #111827; /* colors.text.primary — on token */
+  }
+
+  .hero {
+    margin-bottom: 37px; /* off the spacing ramp — expect an error */
+  }
+
+  .card {
+    background: #f9fafb; /* colors.background.subtle — on token */
+    padding: 14px; /* 2px off spacing.md — expect a warning */
+    border-radius: 6px; /* 2px off borderRadius.sm/md — expect a warning */
+    margin-bottom: 16px; /* spacing.md — on token */
+  }
+
+  .cta {
+    background: #0a6afb; /* 1.4 ΔE off colors.primary — expect a warning */
+    color: #ffffff;
+    padding: 8px 16px; /* spacing.sm / spacing.md — on token */
+    border: 0;
+    border-radius: 8px; /* borderRadius.md — on token */
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .badge {
+    color: #8b5cf6; /* not in the palette at all — expect an error */
+    font-size: 12px;
+  }
+
+  .hint {
+    color: #9ca3af; /* 2.54:1 on white — expect a contrast error */
+    font-size: 13px;
+  }
+</style>
+
+<div class="hero">
+  <h1>Pricing</h1>
+  <p class="hint">All prices exclude tax.</p>
+</div>
+
+<div class="card">
+  <h2>Starter</h2>
+  <p>Everything you need to begin.</p>
+  <span class="badge">New</span>
+  <button class="cta">Choose Starter</button>
+</div>
+
+<div class="card">
+  <h2>Growth</h2>
+  <p>For teams that have outgrown Starter.</p>
+  <button class="cta">Choose Growth</button>
+</div>
