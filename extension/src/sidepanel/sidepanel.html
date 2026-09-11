@@ -1,0 +1,79 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>Pantheon Copilot</title>
+<link rel="stylesheet" href="sidepanel.css" />
+
+<header class="bar">
+  <div class="brand">
+    <span class="mark" aria-hidden="true"></span>
+    <div>
+      <h1>Pantheon Copilot</h1>
+      <p class="source" id="source">Loading tokens…</p>
+    </div>
+  </div>
+  <button class="icon" id="settings" title="Options" aria-label="Options">⚙</button>
+</header>
+
+<nav class="tools">
+  <button class="primary" id="scan">Scan page</button>
+  <button id="pick">Pick element</button>
+  <button id="export" title="Copy the token set as CSS custom properties">Copy CSS</button>
+</nav>
+
+<p class="status" id="status" hidden></p>
+
+<div class="banner" id="banner" hidden>
+  <p id="banner-text"></p>
+  <button id="banner-action" hidden></button>
+</div>
+
+<main id="main">
+  <section class="empty" id="empty">
+    <h2>Audit any page against Pantheon</h2>
+    <p>
+      <strong>Scan page</strong> tallies every colour, spacing and radius the page uses and
+      reports which ones are off the token set. <strong>Pick element</strong> does the same for
+      one element you click.
+    </p>
+    <p>Claude then reads the audit and tells you what is worth fixing.</p>
+  </section>
+
+  <section id="report" hidden>
+    <div class="scope" id="scope"></div>
+
+    <div class="coverage" id="coverage" hidden>
+      <div class="score">
+        <strong id="coverage-overall">—</strong>
+        <span>on&nbsp;token</span>
+      </div>
+      <dl id="coverage-breakdown"></dl>
+    </div>
+
+    <details class="findings" id="findings" hidden>
+      <summary><span id="findings-summary"></span></summary>
+      <ul id="findings-list"></ul>
+    </details>
+  </section>
+
+  <section class="answer" id="answer" hidden>
+    <details class="thinking" id="thinking" hidden>
+      <summary>Reasoning</summary>
+      <pre id="thinking-text"></pre>
+    </details>
+    <div class="prose" id="prose"></div>
+    <p class="meta" id="meta" hidden></p>
+  </section>
+</main>
+
+<form class="composer" id="composer">
+  <textarea
+    id="question"
+    rows="1"
+    placeholder="Ask a follow-up…"
+    aria-label="Ask a follow-up"
+  ></textarea>
+  <button type="submit" id="send" aria-label="Send">Send</button>
+  <button type="button" id="stop" hidden>Stop</button>
+</form>
+
+<script type="module" src="sidepanel.js"></script>

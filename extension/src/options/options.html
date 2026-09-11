@@ -1,0 +1,117 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>Pantheon Copilot — Options</title>
+<link rel="stylesheet" href="options.css" />
+
+<main>
+  <h1>Pantheon Copilot</h1>
+  <p class="lede">
+    Audits any page against the Pantheon design tokens, then asks Claude what is worth fixing.
+  </p>
+
+  <section>
+    <h2>Anthropic API key</h2>
+    <p class="hint">
+      Stored with <code>chrome.storage.local</code> on this machine only — never synced to your
+      Google account, and sent only to <code>api.anthropic.com</code>. Create one at
+      <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener noreferrer"
+        >console.anthropic.com</a
+      >.
+    </p>
+    <div class="field row">
+      <input
+        type="password"
+        id="api-key"
+        placeholder="sk-ant-…"
+        autocomplete="off"
+        spellcheck="false"
+        aria-label="Anthropic API key"
+      />
+      <button type="button" id="reveal" aria-label="Show or hide the key">Show</button>
+      <button type="button" id="test">Test</button>
+    </div>
+    <p class="result" id="test-result" hidden></p>
+  </section>
+
+  <section>
+    <h2>Model</h2>
+    <div class="field">
+      <label for="model">Model</label>
+      <select id="model"></select>
+      <p class="hint" id="model-note"></p>
+    </div>
+    <div class="field">
+      <label for="effort">Effort</label>
+      <select id="effort">
+        <option value="low">low — quick takes</option>
+        <option value="medium">medium</option>
+        <option value="high">high — default</option>
+        <option value="xhigh">xhigh</option>
+        <option value="max">max — most thorough, slowest</option>
+      </select>
+      <p class="hint">
+        How hard Claude works on each review. Higher levels think longer and cost more.
+      </p>
+    </div>
+    <label class="check">
+      <input type="checkbox" id="show-thinking" />
+      <span>Show Claude's reasoning in the panel</span>
+    </label>
+  </section>
+
+  <section>
+    <h2>Token source</h2>
+    <p class="hint">
+      The extension ships a copy of <code>sample-tokens.json</code> from this repository. Point it
+      somewhere else to audit against a different token set.
+    </p>
+    <label class="check">
+      <input type="radio" name="token-source" value="bundled" id="source-bundled" />
+      <span>Bundled Pantheon tokens</span>
+    </label>
+    <label class="check">
+      <input type="radio" name="token-source" value="url" id="source-url" />
+      <span>Fetch from a URL</span>
+    </label>
+    <div class="field indent">
+      <input
+        type="url"
+        id="token-url"
+        placeholder="https://example.com/tokens.json"
+        aria-label="Token file URL"
+      />
+      <p class="hint">
+        Needs site access for that host, which the panel will ask for the first time it fetches.
+      </p>
+    </div>
+    <label class="check">
+      <input type="radio" name="token-source" value="inline" id="source-inline" />
+      <span>Paste a token file</span>
+    </label>
+    <div class="field indent">
+      <textarea
+        id="token-json"
+        rows="8"
+        spellcheck="false"
+        placeholder='{ "colors": { "primary": { "$value": "#0066FF", "$type": "color" } } }'
+        aria-label="Token JSON"
+      ></textarea>
+      <p class="result" id="token-result" hidden></p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Site access</h2>
+    <p class="hint">
+      Pantheon Copilot reads a page only after you grant access to that site, and only when you ask
+      it to. Page content is sent to the Anthropic API as part of the audit.
+    </p>
+    <ul class="origins" id="origins">
+      <li class="muted">No sites granted yet.</li>
+    </ul>
+  </section>
+
+  <p class="saved" id="saved" hidden>Saved.</p>
+</main>
+
+<script type="module" src="options.js"></script>
